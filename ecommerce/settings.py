@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
-import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -95,13 +95,22 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 
 
 DATABASES = {
-    "default": dj_database_url.config(
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": config("DB_NAME"),
+        "HOST": config("DB_HOST"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+    },
+}
+if not DEBUG:
+    import dj_database_url
+
+    DATABASES["default"] = dj_database_url.config(
         default=config("DB_URL"),
         conn_max_age=600,
         conn_health_checks=True,
     )
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

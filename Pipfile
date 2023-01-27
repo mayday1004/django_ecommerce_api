@@ -21,6 +21,7 @@ django-cors-headers = "*"
 gunicorn = "*"
 whitenoise = "*"
 dj-database-url = "*"
+mysqlclient = "*"
 
 [dev-packages]
 
