@@ -28,7 +28,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8001",
     config("CLIENT_URL"),
 ]
-CSRF_TRUSTED_ORIGINS=[config("CLIENT_URL")]
+
 
 # Application definition
 
@@ -105,6 +105,8 @@ DATABASES = {
 }
 if not DEBUG:
     import dj_database_url
+
+    CSRF_TRUSTED_ORIGINS = [config("CLIENT_URL")]
 
     DATABASES["default"] = dj_database_url.config(
         default=config("DB_URL"),
